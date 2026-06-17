@@ -1,12 +1,14 @@
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt';
 import userModels from '../models/user.models.js';
 
 
 
 
-const generarJWT = (id)=>{
-    return jwt.sign({id}, process.env.JTW_SECCRET,{
-            expiresIn : '2d'
+const generarJWT = (id) => {
+   
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '2d'
     });
 };
 
@@ -28,9 +30,9 @@ export const login = async (req ,res)=>{
         }
 
 
-    const passwordValida = await usuario.compararPassword(password);
+   const passwordValido = await bcrypt.compare(password, usuario.password);
 
-     if(!passwordValida){
+     if(!passwordValido){
             return res.status(401).json({
                 msg : ' contraseña  invalidas'
             });
