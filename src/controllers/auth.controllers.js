@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken'
 import userModels from '../models/user.models.js';
+import bcrypt from 'bcrypt.js';
 
 
 
-
-const generarJWT = (id)=>{
-    return jwt.sign({id}, process.env.JTW_SECCRET,{
-            expiresIn : '2d'
+const generarJWT = (id) => {
+   
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+        expiresIn: '2d'
     });
 };
 

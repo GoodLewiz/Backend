@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import dbConection from './config/mongo.config.js';
 import routerUsers from './routes/user.routes.js';

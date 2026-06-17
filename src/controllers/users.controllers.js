@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt.js';
 import userModel from "../models/user.models.js";
 
 
@@ -10,7 +10,7 @@ const controllerUser = {
         try {
             let {name, email , password ,role}=req.body;
             
-            const UserExist = await userModel.findOne({email})
+            const UserExist = await userModels.findOne({email})
             if (UserExist){
                 return res.status(400).json({
                     msg : 'incorrecto el correo ya esta registrado',
@@ -27,14 +27,14 @@ const controllerUser = {
 
             // 3 encriptar
             const passwordProtedted = await bcrypt.hash(password, 8);
-            const newUser = new userModel({
+            const newUser = new userModels({
                 name,
                 email,
                 password : passwordProtedted,
-                role
+                role,
             });
 
-
+                console.log(passwordProtedted)
             const userCreate = await newUser.save();
 
             if(userCreate._id){
@@ -43,21 +43,21 @@ const controllerUser = {
                     msg : 'usuario creado',
                     data :{
                         _id : userCreate._id,
-                        name : userCreate._name,
+                        name : userCreate.name,
                         email : userCreate.email,
-                        role : userCreate.role
+                        role : userCreate.role,
                     }
                 })
             }
 
         } catch (error) {
+            console.log("error es ", error)
             return res.status(500).json({
                     msg : 'error al crear el usuario',
                     data : error.message
                     
                 })
         }
-
 
     },
 
