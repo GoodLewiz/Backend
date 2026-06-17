@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt';
 import userModels from '../models/user.models.js';
 import bcrypt from 'bcrypt.js';
+
+
+
 
 
 
@@ -29,9 +33,9 @@ export const login = async (req ,res)=>{
         }
 
 
-    const passwordValida = await usuario.compararPassword(password);
+   const passwordValido = await bcrypt.compare(password, usuario.password);
 
-     if(!passwordValida){
+     if(!passwordValido){
             return res.status(401).json({
                 msg : ' contraseña  invalidas'
             });

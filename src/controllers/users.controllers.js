@@ -1,5 +1,7 @@
-import bcrypt from 'bcrypt.js';
-import userModel from "../models/user.models.js";
+
+import bcrypt from 'bcryptjs';
+import userModels from '../models/user.models.js';
+
 
 
 
